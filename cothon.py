@@ -1741,7 +1741,7 @@ class SiegeTower:
                         except (socket.timeout, BlockingIOError):
                             continue
 
-                    # Update the shell's current directory
+                   
                     if shell_type == "Windows":
                         current_dir = output.splitlines()[0].strip()
                     else:
@@ -1751,10 +1751,10 @@ class SiegeTower:
                         shell['current_dir'] = current_dir
                     print(f"\n[+] Changed directory to (Shell {shell_id}): {current_dir}\n")
 
-                # Handle 'pwd' command
+               
                 else:
                     if shell_type == "Windows":
-                        cmd = "cmd /c cd\n"  # Universal command for Windows
+                        cmd = "cmd /c cd\n"  
                     else:
                         cmd = "pwd\n"
 
@@ -1785,7 +1785,7 @@ class SiegeTower:
             except Exception as e:
                 print(f"[-] Error executing command: {str(e)}")
 
-        # Execute in a separate thread
+        
         threading.Thread(target=_exec, daemon=True).start()
         if command.startswith("cd "):
             print(f"[+] Tasked shell {shell_id} to change directory...")
@@ -1805,7 +1805,7 @@ class SiegeTower:
                     shell_type = shell['type']
 
                 if shell_type == "Windows":
-                    cmd = f"cmd /c dir {command}\n"  # Universal command for Windows
+                    cmd = f"cmd /c dir {command}\n"  
                 else:
                     cmd = f"ls -la {command}\n" if command else "ls -la\n"
 
@@ -2124,7 +2124,7 @@ class SiegeTower:
 
                         continue
 
-                # Build OS-specific command
+               
 
                 if shell['type'] == "Windows":
 
