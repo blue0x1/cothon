@@ -431,15 +431,15 @@ class SiegeTower:
         connected_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         user_info, is_elevated = self._user_info(conn, shell_type)
 
-        # Fetch the initial working directory
+        
         if shell_type == "Windows":
-            conn.sendall(b"cmd /c cd\n")  # Universal command for Windows
+            conn.sendall(b"cmd /c cd\n")  
         else:
-            conn.sendall(b"pwd\n")  # Linux: 'pwd' prints the current directory
+            conn.sendall(b"pwd\n")  
 
-        # Read the response
+        
         output = ""
-        end_time = time.time() + 5  # 5-second timeout
+        end_time = time.time() + 5  
         conn.settimeout(2)
         while time.time() < end_time:
             try:
@@ -454,13 +454,13 @@ class SiegeTower:
             except (socket.timeout, BlockingIOError):
                 continue
 
-        # Extract the current directory
+        
         if shell_type == "Windows":
             current_dir = output.splitlines()[0].strip()
         else:
             current_dir = output.splitlines()[0].strip()
 
-        # Initialize the shell with the fetched directory
+        
         with self.lock:
             self.shells[shell_id] = {
                 'socket': conn,
@@ -472,7 +472,7 @@ class SiegeTower:
                 'user_info': user_info,
                 'is_elevated': is_elevated,
                 'os_version': None,
-                'current_dir': current_dir  # Dynamic initial directory
+                'current_dir': current_dir  
             }
         print(f"\n[+] New shell: ID {shell_id} ({shell_type}) from {addr} \r")
     def _shell_type(self, conn: socket.socket) -> str:
